@@ -1,2 +1,2 @@
-# self-python-library
-Gather python codes that written or found during daily coding.
+# self library
+Various of codes in different languages written by me or found during daily coding.
