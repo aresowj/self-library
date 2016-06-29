@@ -20,12 +20,8 @@ LOG_TARGET_CONSOLE = 0x1
 LOG_TARGET_LOG_FILE = 0x10
 LOG_TARGET_LOG_HTTP = 0x100
 
-_LOGGER_FORMAT = "[%(levelname)7s] [%(asctime)s] [%(thread)d] - %(message)s"
 
-
-class WarningOrMoreCritical(logging.Filter):
-    def filter(self, record):
-        return record.levelno >= LOG_LEVEL_WARNING
+_LOGGER_FORMAT = "[%(levelname)7s] [%(asctime)s] [%(thread)d] [%(module)s] - %(message)s"
 
 
 class InfoOrLessCritical(logging.Filter):
@@ -51,7 +47,7 @@ class HandlerFactory(object):
         if 'std_err_handler' not in cls.handlers:
             std_err_handler = logging.StreamHandler(sys.stderr)
             std_err_handler.setFormatter(logging.Formatter(_LOGGER_FORMAT))
-            std_err_handler.addFilter(WarningOrMoreCritical())
+            std_err_handler.setLevel(LOG_LEVEL_WARNING)
             cls.handlers['std_err_handler'] = std_err_handler
 
         return cls.handlers['std_err_handler']
