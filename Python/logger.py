@@ -180,36 +180,22 @@ class GeneralLogger(object):
             pass
 
 
-def log_debug(message):
-    GeneralLogger().get_logger().debug(message)
-
-
-def log_info(message):
-    GeneralLogger().get_logger().info(message)
-
-
-def log_warning(message):
-    GeneralLogger().get_logger().warning(message)
-
-
-def log_error(message):
-    GeneralLogger().get_logger().error(message)
-
-
 if __name__ == '__main__':
     def worker(message):
-        log_info(message + ' info')
-        log_debug(message + ' debug')
-        log_warning(message + ' warning')
-        log_error(message + ' error')
+        logger = GeneralLogger().get_logger()
+        logger.info(message + ' info')
+        logger.debug(message + ' debug')
+        logger.warning(message + ' warning')
+        logger.error(message + ' error')
 
     GeneralLogger().set_log_path('/tmp/test.txt')
     GeneralLogger().set_log_by_thread_log(True)
     GeneralLogger().set_log_level(LOG_LEVEL_DEBUG)
-    log_debug('debug')
-    log_warning('warning')
-    log_info('info')
-    log_error('error')
+    logger = GeneralLogger().get_logger()
+    logger.debug('debug')
+    logger.warning('warning')
+    logger.info('info')
+    logger.error('error')
     t1 = threading.Thread(target=worker, args=('worker 1',))
     t2 = threading.Thread(target=worker, args=('worker 2',))
     t1.start()
