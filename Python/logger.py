@@ -65,10 +65,6 @@ class HandlerFactory(object):
 
         return cls.handlers['rotating_file_handler'][log_path]
 
-# set root logger
-logging.getLogger().setLevel(LOG_LEVEL_NOTSET)
-logging.getLogger().addHandler(HandlerFactory.get_std_out_handler())
-logging.getLogger().addHandler(HandlerFactory.get_std_err_handler())
 
 # logger for this module
 logger = logging.getLogger(__name__)
@@ -88,6 +84,10 @@ def singleton(cls, *args, **kw):
 @singleton
 class GeneralLogger(object):
     def __init__(self, level=LOG_LEVEL_DEBUG, log_by_thread=False, log_path='', max_bytes=0, backup_count=0):
+        # set root logger
+        logging.getLogger().setLevel(LOG_LEVEL_NOTSET)
+        logging.getLogger().addHandler(HandlerFactory.get_std_out_handler())
+        logging.getLogger().addHandler(HandlerFactory.get_std_err_handler())
         # default logger setting
         logger.info("General logger initializing...")
         self._loggers = {}
@@ -182,21 +182,22 @@ class GeneralLogger(object):
 
 if __name__ == '__main__':
     def worker(message):
-        logger = GeneralLogger().get_logger()
-        logger.info(message + ' info')
-        logger.debug(message + ' debug')
-        logger.warning(message + ' warning')
-        logger.error(message + ' error')
+        worker_logger = GeneralLogger().get_logger()
+        worker_logger.info(message + ' info')
+        worker_logger.debug(message + ' debug')
+        worker_logger.warning(message + ' warning')
+        worker_logger.error(message + ' error')
 
     GeneralLogger().set_log_path('/tmp/test.txt')
     GeneralLogger().set_log_by_thread_log(True)
     GeneralLogger().set_log_level(LOG_LEVEL_DEBUG)
-    logger = GeneralLogger().get_logger()
-    logger.debug('debug')
-    logger.warning('warning')
-    logger.info('info')
-    logger.error('error')
+    main_logger = GeneralLogger().get_logger()
+    main_logger.debug('debug')
+    main_logger.warning('warning')
+    main_logger.info('info')
+    main_logger.error('error')
     t1 = threading.Thread(target=worker, args=('worker 1',))
     t2 = threading.Thread(target=worker, args=('worker 2',))
     t1.start()
     t2.start()
+
