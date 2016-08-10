@@ -11,11 +11,7 @@ def get_file_name(file_object):
 
 @register.filter
 def get_dict_value(dictionary, key):
-    try:
-        value = dictionary.get(key)
-    except KeyError:
-        value = ''
-    return value
+    return dictionary.get(key)
 
 
 @register.filter
