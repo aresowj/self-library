@@ -1,5 +1,5 @@
 old_path=$(PWD)
-old_pythonpath=$(PYTHONPATH)
+old_pythonpath=$PYTHONPATH
 . ./venv/bin/activate
 export PYTHONPATH=$PYTHONPATH:$PWD
 cd manager
