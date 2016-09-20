@@ -9,6 +9,6 @@ def ping(host):
     if platform.system().lower()=="windows":
         ping_str = "ping -n 1 -w 2000 " + host
     else:
-        ping_str = "timeout 1 ping -c 1 " + host
+        ping_str = "ping -c 1 -t 1 " + host
 
     return os.system(ping_str) == 0
