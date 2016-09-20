@@ -6,7 +6,9 @@ def ping(host):
 
     # figure out the current running platform and adjust 
     # parameter to ping command.
-    params = "-n 1" if  platform.system().lower()=="windows" else "-c 1"
+    if platform.system().lower()=="windows":
+        ping_str = "ping -n 1 -w 2000 " + host
+    else:
+        ping_str = "timeout 1 ping -c 1 " + host
 
-    # Ping
-    return os.system("ping " + params + " " + host) == 0
+    return os.system(ping_str) == 0
