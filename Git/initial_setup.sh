@@ -8,6 +8,7 @@ git config --global user.email "aresowj@gmail.com"
 git config --global alias.cm "commit -m"
 git config --global alias.co "checkout"
 git config --global alias.br "branch"
+git config --global alias.st "status"
 
 # Setup default editor
-git config --global core.editor emacs
+git config --global core.editor vim
