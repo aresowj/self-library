@@ -12,6 +12,7 @@ GMAIL_USERNAME = 'user@gmail.com'
 GMAIL_SECRET = ''
 FROM = GMAIL_USERNAME
 TO = 'target@outlook.com'
+CHECK_LIST = ['href="#"', 'coming soon']
 
 
 def init_logging():
@@ -33,13 +34,20 @@ def get_smtp_client():
     return smtplib.SMTP_SSL(host='smtp.gmail.com', port=465)
 
 
-def check_ticket_status(raw_html):
-    root = etree.HTML(raw_html)
+def clean_raw_html(html):
+    return (html.replace('\r\n', '')
+                .replace('\n', '')
+                .replace('\t', '')
+                .replace('  ', ''))
 
-    for e in root.cssselect('.fee-aside'):
-        source = etree.tostring(e).decode(encoding='utf-8').lower()
+
+def check_ticket_status(raw_html):
+    for e in etree.HTML(raw_html).cssselect('.fee-aside'):
+        # Parse and clean up the html string
+        source = clean_raw_html(etree.tostring(e).decode(encoding='utf-8').lower())
         logging.info(source)
-        if 'coming soon' not in source:
+
+        if not all(string in source for string in CHECK_LIST):
             raise Exception('Ticket sales started!')
 
 
