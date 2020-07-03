@@ -2,7 +2,7 @@
 
 # Setup user name and email, used for commits
 git config --global user.name "Ares Ou"
-git config --global user.email "aresowj@outlook.com"
+git config --global user.email "ares.ou@outlook.com"
 
 # Setup alias for shortcuts
 git config --global alias.cm "commit -m"
