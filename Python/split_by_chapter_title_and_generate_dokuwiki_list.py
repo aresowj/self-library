@@ -30,7 +30,7 @@ def save_to_file(chapter: str, chapter_file_name: str, output_folder: str) -> No
         with open(output_path, 'w', encoding='utf8') as w:
             w.writelines(chapter)
 
-def split_chapters(input_path: str, category_name: str, output_folder: str = 'output') -> None:
+def split_chapters(input_path: str, category_name: str) -> None:
     if input_path is None or len(input_path) <= 0:
         raise ValueError(f'Input path "{input_path}" not valid!')
 
@@ -42,7 +42,8 @@ def split_chapters(input_path: str, category_name: str, output_folder: str = 'ou
         chapter_file_name = ''
         all_chapter_names = []
 
-        if not os.path.exists('output_folder'):
+        output_folder = urllib.parse.quote(category_name)
+        if not os.path.exists(output_folder):
             os.mkdir(output_folder)
         
         for line in f.readlines():
@@ -77,4 +78,4 @@ def split_chapters(input_path: str, category_name: str, output_folder: str = 'ou
 if __name__ == '__main__':
     input_path = 'D:\\source.txt'
     category_name = '你的书'
-    split_chapters(input_path, urllib.parse.quote(category_name), category_name)
+    split_chapters(input_path, category_name)
