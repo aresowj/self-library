@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Setup user name and email, used for commits
-git config --global user.name "Ares Ou"
+git config --global user.name "Weijie Ou"
 git config --global user.email "ares.ou@outlook.com"
 
 # Setup alias for shortcuts
