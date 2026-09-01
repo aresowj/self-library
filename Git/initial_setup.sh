@@ -15,8 +15,3 @@ git config --global core.editor vim
 
 # Enable long name support on Windows, run git bash as administrator if encounting permission issue
 git config --system core.longpaths true
-
-alias gs='git status'
-alias gco='git checkout'
-alias gb='git branch'
-alias gcm='git commit -m'
